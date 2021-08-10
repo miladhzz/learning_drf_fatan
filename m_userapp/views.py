@@ -35,3 +35,4 @@ def all_user(request):
     users = User.objects.all()
     json_users = serializers.serialize('json', users)
     return Response(data=json_users, status=status.HTTP_200_OK)
+
