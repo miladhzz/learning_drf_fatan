@@ -13,4 +13,5 @@ class UserSerializer(serializers.Serializer):
     username = serializers.CharField(max_length=10)
     first_name = serializers.CharField(max_length=20, required=False)
     last_name = serializers.CharField(max_length=20)
+    id = serializers.IntegerField(read_only=True)
 

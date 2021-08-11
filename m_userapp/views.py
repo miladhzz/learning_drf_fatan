@@ -3,7 +3,6 @@ from rest_framework.response import Response
 from rest_framework import status
 from . import serializers
 from django.contrib.auth.models import User
-from django.core import serializers
 
 
 @api_view(['GET', 'POST'])
@@ -33,6 +32,6 @@ def add_user(request):
 @api_view(['GET'])
 def all_user(request):
     users = User.objects.all()
-    json_users = serializers.serialize('json', users)
-    return Response(data=json_users, status=status.HTTP_200_OK)
+    json_users = serializers.UserSerializer(users, many=True)
+    return Response(data=json_users.data, status=status.HTTP_200_OK)
 
