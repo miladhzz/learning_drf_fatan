@@ -35,3 +35,12 @@ def all_user(request):
     json_users = serializers.UserSerializer(users, many=True)
     return Response(data=json_users.data, status=status.HTTP_200_OK)
 
+
+@api_view(['POST'])
+def add_user_model(request):
+    user_serializer = serializers.UserModelSerializer(data=request.data)
+
+    if user_serializer.is_valid():
+        user_serializer.save()
+        return Response({"result": "OK"}, status=status.HTTP_201_CREATED)
+    return Response({"result": "Error"}, status=status.HTTP_400_BAD_REQUEST)

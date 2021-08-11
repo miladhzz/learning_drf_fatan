@@ -15,3 +15,9 @@ class UserSerializer(serializers.Serializer):
     last_name = serializers.CharField(max_length=20)
     id = serializers.IntegerField(read_only=True)
 
+
+class UserModelSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = User
+        fields = ["username", "first_name", "last_name"]
+        read_only_fields = ['id']
