@@ -6,6 +6,7 @@ from django.contrib.auth.models import User
 from django.views.decorators.csrf import csrf_exempt
 from django.http import JsonResponse
 from rest_framework.parsers import JSONParser
+from rest_framework import viewsets
 
 
 @api_view(['GET', 'POST'])
@@ -64,3 +65,7 @@ def add_user_model(request):
     return Response({"result": "Error"}, status=status.HTTP_400_BAD_REQUEST)
 
 
+class UserList(viewsets.ModelViewSet):
+    queryset = User.objects.all()
+    serializer_class = serializers.UserModelSerializer
+    http_method_names = ['get']

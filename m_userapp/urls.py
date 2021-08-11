@@ -1,5 +1,9 @@
 from . import views
 from django.urls import path
+from rest_framework.routers import DefaultRouter
+
+router = DefaultRouter()
+router.register('users2', views.UserList)
 
 urlpatterns = [
     path('calc/', views.calc),
@@ -9,3 +13,4 @@ urlpatterns = [
     path('users/', views.all_user),
 ]
 
+urlpatterns += router.urls
