@@ -3,9 +3,6 @@ from rest_framework.response import Response
 from rest_framework import status
 from . import serializers
 from django.contrib.auth.models import User
-from django.views.decorators.csrf import csrf_exempt
-from django.http import JsonResponse
-from rest_framework.parsers import JSONParser
 from rest_framework import viewsets
 
 
@@ -21,21 +18,6 @@ def calc(request):
         return Response({"result": "GET"}, status=status.HTTP_200_OK)
     except KeyError:
         return Response({"result": "Error"}, status=status.HTTP_400_BAD_REQUEST)
-
-
-@csrf_exempt
-def calc_json_response(request):
-    try:
-        if request.method == "POST":
-            data = JSONParser().parse(request)
-            num1 = data['num1']
-            num2 = data['num2']
-            if num1 - num2 < 0:
-                return JsonResponse({"result": "Navigate"}, status=status.HTTP_400_BAD_REQUEST)
-            return JsonResponse({"result": "Positive"}, status=status.HTTP_200_OK)
-        return JsonResponse({"result": "GET"}, status=status.HTTP_200_OK)
-    except KeyError:
-        return JsonResponse({"result": "Error"}, status=status.HTTP_400_BAD_REQUEST)
 
 
 @api_view(['POST'])
